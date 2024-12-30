@@ -1,0 +1,68 @@
+{
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "enum": ["ok"]
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {
+            "model": { "type": "string" },
+            "vehicle_class": { "type": "string" },
+            "manufacturer": { "type": "string" },
+            "cost_in_credits": { "type": "string" },
+            "length": { "type": "string" },
+            "crew": { "type": "string" },
+            "passengers": { "type": "string" },
+            "max_atmosphering_speed": { "type": "string" },
+            "cargo_capacity": { "type": "string" },
+            "consumables": { "type": "string" },
+            "films": {
+              "type": "array",
+              "items": { "type": "string", "format": "uri" }
+            },
+            "pilots": {
+              "type": "array",
+              "items": { "type": "string", "format": "uri" }
+            },
+            "created": { "type": "string", "format": "date-time" },
+            "edited": { "type": "string", "format": "date-time" },
+            "name": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          },
+          "required": [
+            "model",
+            "vehicle_class",
+            "manufacturer",
+            "cost_in_credits",
+            "length",
+            "crew",
+            "passengers",
+            "max_atmosphering_speed",
+            "cargo_capacity",
+            "consumables",
+            "films",
+            "pilots",
+            "created",
+            "edited",
+            "name",
+            "url"
+          ],
+          "additionalProperties": false
+        },
+        "description": { "type": "string" },
+        "_id": { "type": "string" },
+        "uid": { "type": "string" },
+        "__v": { "type": "integer" }
+      },
+      "required": ["properties", "description", "_id", "uid", "__v"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["message", "result"],
+  "additionalProperties": false
+}

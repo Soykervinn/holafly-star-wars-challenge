@@ -1,0 +1,61 @@
+{
+  "type": "object",
+  "properties": {
+    "message": {
+      "type": "string",
+      "enum": ["ok"]
+    },
+    "result": {
+      "type": "object",
+      "properties": {
+        "properties": {
+          "type": "object",
+          "properties": {
+            "classification": { "type": "string" },
+            "designation": { "type": "string" },
+            "average_height": { "type": "string" },
+            "average_lifespan": { "type": "string" },
+            "hair_colors": { "type": "string" },
+            "skin_colors": { "type": "string" },
+            "eye_colors": { "type": "string" },
+            "homeworld": { "type": "string", "format": "uri" },
+            "language": { "type": "string" },
+            "people": {
+              "type": "array",
+              "items": { "type": "string", "format": "uri" }
+            },
+            "created": { "type": "string", "format": "date-time" },
+            "edited": { "type": "string", "format": "date-time" },
+            "name": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          },
+          "required": [
+            "classification",
+            "designation",
+            "average_height",
+            "average_lifespan",
+            "hair_colors",
+            "skin_colors",
+            "eye_colors",
+            "homeworld",
+            "language",
+            "people",
+            "created",
+            "edited",
+            "name",
+            "url"
+          ],
+          "additionalProperties": false
+        },
+        "description": { "type": "string" },
+        "_id": { "type": "string" },
+        "uid": { "type": "string" },
+        "__v": { "type": "integer" }
+      },
+      "required": ["properties", "description", "_id", "uid", "__v"],
+      "additionalProperties": false
+    }
+  },
+  "required": ["message", "result"],
+  "additionalProperties": false
+}

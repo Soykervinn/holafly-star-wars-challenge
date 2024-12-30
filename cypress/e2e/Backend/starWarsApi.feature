@@ -94,3 +94,43 @@ Scenario: Get film by uid | The Empire Strikes Back.
     Given That I want to know the details of a specific film.
     When I send a GET request to the films endpoint with the uid.
     Then The API respond with status 200 and the details of the film.
+
+#//* 5.2 GET Film by tittle and identify the uid.
+
+Scenario: GET Film by tittle and identify the uid.
+    Given That I want to know the uid of a specific film.
+    When I send a GET request to the films endpoint with the tittle as a queryparam.
+    Then The API respond with status 200 and the details of the film and the uid was identified.
+
+#//? Species endpoint.
+
+#//* 6. List of species.
+
+Scenario: List of species.
+    Given That I want to know the all Star Wars species.
+    When I send a GET request to the species endpoint.
+    Then The API respond with status 200 and the List of species.
+
+#//* 6.1 GET Species by uid.
+
+Scenario: Get species by uid | Wookie.
+    Given That I want to know the details of a specific species.
+    When I send a GET request to the species endpoint with the uid.
+    Then The API respond with status 200 and the details of the specie. 
+
+#//? Vehicles endpoint.
+
+#//* 7. List of vehicles.
+
+Scenario: List of vehicles.
+    Given That I want to know the all Star Wars vehicles.
+    When I send a GET request to the vehicles endpoint.
+    Then The API respond with status 200 and the List of vehicles.
+
+#//* 7.1 GET Vehicle by uid.
+
+Scenario: Get vehicle by uid | Sand Crawler.
+    Given That I want to know the details of a specific vehicle.
+    When I send a GET request to the vehicles endpoint with the uid.
+    Then The API respond with status 200 and the details of the vehicle.
+

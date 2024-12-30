@@ -40,11 +40,41 @@ Cypress.Commands.add("planetByUid", (config, uid) => {
 
 //! Films.
 
-Cypress.Commands.add("getFilms", (config) => {
-    cy.api({ ...config, method: "GET", url: `${baseUrl}/films/` });
+Cypress.Commands.add("getFilms", (config, title) => {
+    const queryParams = {};
+
+    if (title) {
+        queryParams.title = title;
+    }
+
+    cy.api({
+        ...config,
+        method: "GET",
+        url: `${baseUrl}/films/`,
+        qs: queryParams,
+    });
 });
 
 Cypress.Commands.add("getFilmByUid", (config, uid) => {
     cy.api({ ...config, method: "GET", url: `${baseUrl}/films/${uid}/` });
 });
 
+//! Species.
+
+Cypress.Commands.add("getSpecies", (config) => {
+    cy.api({ ...config, method: "GET", url: `${baseUrl}/species/` });
+});
+
+Cypress.Commands.add("getSpecieByUid", (config, uid) => {
+    cy.api({ ...config, method: "GET", url: `${baseUrl}/species/${uid}/` });
+});
+
+//! Vehicles.
+
+Cypress.Commands.add("getAllVehicles", (config) => {
+    cy.api({ ...config, method: "GET", url: `${baseUrl}/vehicles/` });
+});
+
+Cypress.Commands.add("getVehicleByUid", (config, uid) => {
+    cy.api({ ...config, method: "GET", url: `${baseUrl}/vehicles/${uid}/` });
+});

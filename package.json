@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-     "start": "echo 'No server required for this project'",
+    "cy:open": "npx cypress open",
+    "cy:run": "npx cypress run",
+    "cy:cloud": "npx cypress run --record --key 2c8f43dc-ce48-47ee-98a6-e9ee3fc67aec",
+    "start": "echo 'No server required for this project'",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kervinn Aguilera",

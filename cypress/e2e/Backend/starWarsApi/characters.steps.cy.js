@@ -9,38 +9,48 @@ const notFoundSchema = require('../schemas/characters/notFound.json');
 //* 3. List of people.
 
 Given(/^That I want to know the all Star Wars characters.$/, () => {
-	return true;
+    return true;
 });
 
 When(/^I send a GET request to the characters endpoint.$/, () => {
-	cy.getCharacters(requestConfig.SWAPI()).then((response) => {
+    cy.getCharacters(requestConfig.SWAPI()).then((response) => {
         expect(response.duration).to.be.lessThan(3000);
 
         expect(response.status, `The status code must be 200. Actual: ${response.status}`).to.eq(200);
 
-		cy.schemaValidator(response.body, listOfCharactersSchema);
+        expect(
+            response.body,
+            `Expected response body to be an object, but got: ${typeof response.body} with value: ${JSON.stringify(response.body, null, 2)}`
+        ).to.be.an("object");
+
+        cy.schemaValidator(response.body, listOfCharactersSchema);
 
         cy.log(`The Response was: ${JSON.stringify(response.body, null, 2)}`);
     });
 });
 
 Then(/^The API respond with status 200 and the List of characters.$/, () => {
-	return true;
+    return true;
 });
 
 //* 3.1 GET People by uid.
 
 Given(/^That I want to know the details of a specific character.$/, () => {
-	return true;
+    return true;
 });
 
 When(/^I send a GET request to the characters endpoint with the uid.$/, () => {
-	const uid = 1;
+    const uid = 1;
 
-	cy.characterByUid(requestConfig.SWAPI(), uid).then((response) => {
+    cy.characterByUid(requestConfig.SWAPI(), uid).then((response) => {
         expect(response.duration).to.be.lessThan(3000);
 
         expect(response.status, `The status code must be 200. Actual: ${response.status}`).to.eq(200);
+
+        expect(
+            response.body,
+            `Expected response body to be an object, but got: ${typeof response.body} with value: ${JSON.stringify(response.body, null, 2)}`
+        ).to.be.an("object");
 
         cy.schemaValidator(response.body, characterByUidSchema);
 
@@ -49,42 +59,52 @@ When(/^I send a GET request to the characters endpoint with the uid.$/, () => {
 });
 
 Then(/^The API respond with status 200 and the details of the character.$/, () => {
-	return true;
+    return true;
 });
 
 //* 3.2 Maximum of characters.
 
 Given(/^That I want to know the maximum number of characters.$/, () => {
-	return true;
+    return true;
 });
 
 When(/^I send a GET request to the list characters endpoint.$/, () => {
-	cy.getCharacters(requestConfig.SWAPI()).then((response) => {
+    cy.getCharacters(requestConfig.SWAPI()).then((response) => {
         expect(response.duration).to.be.lessThan(3000);
 
         expect(response.status, `The status code must be 200. Actual: ${response.status}`).to.eq(200);
+
+        expect(
+            response.body,
+            `Expected response body to be an object, but got: ${typeof response.body} with value: ${JSON.stringify(response.body, null, 2)}`
+        ).to.be.an("object");
 
         cy.log(`The Response was: ${JSON.stringify(response.body, null, 2)}`);
     });
 });
 
 Then(/^The API respond with status 200 and the maximum number of characters available.$/, () => {
-	return true;
+    return true;
 });
 
 //* 3.3 GET People by uid | Character not found status 404.
 
 Given(/^That I want to validate the response when the character is not found.$/, () => {
-	return true;
+    return true;
 });
 
 When(/^I send a GET request to the characters endpoint with the uid that doesn't exist.$/, () => {
-	const uid = 99;
+    const uid = 99;
 
-	cy.characterByUid(requestConfig.SWAPI(), uid).then((response) => {
+    cy.characterByUid(requestConfig.SWAPI(), uid).then((response) => {
         expect(response.duration).to.be.lessThan(3000);
 
         expect(response.status, `The status code must be 200. Actual: ${response.status}`).to.eq(404);
+
+        expect(
+            response.body,
+            `Expected response body to be an object, but got: ${typeof response.body} with value: ${JSON.stringify(response.body, null, 2)}`
+        ).to.be.an("object");
 
         cy.schemaValidator(response.body, notFoundSchema);
 
@@ -93,5 +113,5 @@ When(/^I send a GET request to the characters endpoint with the uid that doesn't
 });
 
 Then(/^The API respond with status code 404 and the related message.$/, () => {
-	return true;
+    return true;
 });
