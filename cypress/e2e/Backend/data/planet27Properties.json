@@ -1,0 +1,23 @@
+{
+  "message": "ok",
+  "result": {
+    "properties": {
+      "diameter": "14050",
+      "rotation_period": "26",
+      "orbital_period": "334",
+      "gravity": "1 standard",
+      "population": "4000000000",
+      "climate": "temperate",
+      "terrain": "plains, seas, mesas",
+      "surface_water": "10",
+      "created": "2024-12-29T21:27:38.060Z",
+      "edited": "2024-12-29T21:27:38.060Z",
+      "name": "Ord Mantell",
+      "url": "https://www.swapi.tech/api/planets/27"
+    },
+    "description": "A planet.",
+    "_id": "5f7254c11b7dfa00041c6fc8",
+    "uid": "27",
+    "__v": 0
+  }
+}

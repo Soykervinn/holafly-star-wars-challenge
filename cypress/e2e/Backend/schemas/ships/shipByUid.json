@@ -1,0 +1,62 @@
+{
+    "type": "object",
+    "properties": {
+      "message": { "type": "string", "enum": ["ok"] },
+      "result": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "type": "object",
+            "properties": {
+              "model": { "type": "string" },
+              "starship_class": { "type": "string" },
+              "manufacturer": { "type": "string" },
+              "cost_in_credits": { "type": "string", "pattern": "^[0-9]+$" },
+              "length": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+              "crew": { "type": "string", "pattern": "^[0-9]+$" },
+              "passengers": { "type": "string", "pattern": "^[0-9]+$" },
+              "max_atmosphering_speed": { "type": "string", "pattern": "^[0-9]+$" },
+              "hyperdrive_rating": { "type": "string", "pattern": "^[0-9]+(\\.[0-9]+)?$" },
+              "MGLT": { "type": "string", "pattern": "^[0-9]+$" },
+              "cargo_capacity": { "type": "string", "pattern": "^[0-9]+$" },
+              "consumables": { "type": "string" },
+              "pilots": {
+                "type": "array",
+                "items": { "type": "string", "format": "uri" }
+              },
+              "created": { "type": "string", "format": "date-time" },
+              "edited": { "type": "string", "format": "date-time" },
+              "name": { "type": "string" },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": [
+              "model",
+              "starship_class",
+              "manufacturer",
+              "cost_in_credits",
+              "length",
+              "crew",
+              "passengers",
+              "max_atmosphering_speed",
+              "hyperdrive_rating",
+              "MGLT",
+              "cargo_capacity",
+              "consumables",
+              "pilots",
+              "created",
+              "edited",
+              "name",
+              "url"
+            ]
+          },
+          "description": { "type": "string" },
+          "_id": { "type": "string", "pattern": "^[a-f0-9]{24}$" },
+          "uid": { "type": "string", "pattern": "^[0-9]+$" },
+          "__v": { "type": "integer" }
+        },
+        "required": ["properties", "description", "_id", "uid", "__v"]
+      }
+    },
+    "required": ["message", "result"]
+  }
+  

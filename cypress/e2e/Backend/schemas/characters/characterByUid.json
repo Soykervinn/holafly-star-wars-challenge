@@ -1,0 +1,49 @@
+{
+    "type": "object",
+    "properties": {
+      "message": { "type": "string", "enum": ["ok"] },
+      "result": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "type": "object",
+            "properties": {
+              "height": { "type": "string", "pattern": "^[0-9]+$" },
+              "mass": { "type": "string", "pattern": "^[0-9]+$" },
+              "hair_color": { "type": "string" },
+              "skin_color": { "type": "string" },
+              "eye_color": { "type": "string" },
+              "birth_year": { "type": "string" },
+              "gender": { "type": "string" },
+              "created": { "type": "string", "format": "date-time" },
+              "edited": { "type": "string", "format": "date-time" },
+              "name": { "type": "string" },
+              "homeworld": { "type": "string", "format": "uri" },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": [
+              "height",
+              "mass",
+              "hair_color",
+              "skin_color",
+              "eye_color",
+              "birth_year",
+              "gender",
+              "created",
+              "edited",
+              "name",
+              "homeworld",
+              "url"
+            ]
+          },
+          "description": { "type": "string" },
+          "_id": { "type": "string", "pattern": "^[a-f0-9]{24}$" },
+          "uid": { "type": "string" },
+          "__v": { "type": "integer" }
+        },
+        "required": ["properties", "description", "_id", "uid", "__v"]
+      }
+    },
+    "required": ["message", "result"]
+  }
+  

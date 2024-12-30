@@ -1,0 +1,49 @@
+{
+    "type": "object",
+    "properties": {
+      "message": { "type": "string", "enum": ["ok"] },
+      "result": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "type": "object",
+            "properties": {
+              "diameter": { "type": "string", "pattern": "^[0-9]+$" },
+              "rotation_period": { "type": "string", "pattern": "^[0-9]+$" },
+              "orbital_period": { "type": "string", "pattern": "^[0-9]+$" },
+              "gravity": { "type": "string" },
+              "population": { "type": "string", "pattern": "^[0-9]+$" },
+              "climate": { "type": "string" },
+              "terrain": { "type": "string" },
+              "surface_water": { "type": "string", "pattern": "^[0-9]+$" },
+              "created": { "type": "string", "format": "date-time" },
+              "edited": { "type": "string", "format": "date-time" },
+              "name": { "type": "string" },
+              "url": { "type": "string", "format": "uri" }
+            },
+            "required": [
+              "diameter",
+              "rotation_period",
+              "orbital_period",
+              "gravity",
+              "population",
+              "climate",
+              "terrain",
+              "surface_water",
+              "created",
+              "edited",
+              "name",
+              "url"
+            ]
+          },
+          "description": { "type": "string" },
+          "_id": { "type": "string", "pattern": "^[a-f0-9]{24}$" },
+          "uid": { "type": "string" },
+          "__v": { "type": "integer" }
+        },
+        "required": ["properties", "description", "_id", "uid", "__v"]
+      }
+    },
+    "required": ["message", "result"]
+  }
+  

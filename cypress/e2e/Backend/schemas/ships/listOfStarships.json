@@ -1,0 +1,24 @@
+{
+    "type": "object",
+    "properties": {
+      "message": { "type": "string", "enum": ["ok"] },
+      "total_records": { "type": "integer", "minimum": 1 },
+      "total_pages": { "type": "integer", "minimum": 1 },
+      "previous": { "type": ["string", "null"], "format": "uri" },
+      "next": { "type": ["string", "null"], "format": "uri" },
+      "results": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "uid": { "type": "string", "pattern": "^[0-9]+$" },
+            "name": { "type": "string" },
+            "url": { "type": "string", "format": "uri" }
+          },
+          "required": ["uid", "name", "url"]
+        }
+      }
+    },
+    "required": ["message", "total_records", "total_pages", "previous", "next", "results"]
+  }
+  

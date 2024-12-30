@@ -1,0 +1,20 @@
+{
+    "type": "object",
+    "properties": {
+      "message": { "type": "string", "enum": ["ok"] },
+      "result": {
+        "type": "object",
+        "properties": {
+          "films": { "type": "string", "format": "uri" },
+          "people": { "type": "string", "format": "uri" },
+          "planets": { "type": "string", "format": "uri" },
+          "species": { "type": "string", "format": "uri" },
+          "starships": { "type": "string", "format": "uri" },
+          "vehicles": { "type": "string", "format": "uri" }
+        },
+        "required": ["films", "people", "planets", "species", "starships", "vehicles"]
+      }
+    },
+    "required": ["message", "result"]
+  }
+  
