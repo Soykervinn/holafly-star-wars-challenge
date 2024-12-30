@@ -83,7 +83,7 @@ cypress/
     support/
 node_modules/
 postman-api-testing/
-    collection.json
+    holafly-star-wars-challenge.postman_collection
 .gitignore
 cypress.config.js
 README.md

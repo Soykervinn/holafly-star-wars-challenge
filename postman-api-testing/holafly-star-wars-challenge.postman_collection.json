@@ -1,0 +1,1142 @@
+{
+	"info": {
+		"_postman_id": "14e3096a-0946-4d42-b32d-3ff2932ee610",
+		"name": "holafly-star-wars-challenge",
+		"description": "This is a collection where you can find the tasks requested and the documentation of Star Wars API. This Doc is for the technical challenge as a part of the hiring process at Holafly.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "26337605"
+	},
+	"item": [
+		{
+			"name": "Starships",
+			"item": [
+				{
+					"name": "Get all Starships",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is within an acceptable range\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the response schema for required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    ",
+									"    responseData.results.forEach(function(result) {",
+									"        pm.expect(result.uid).to.exist;",
+									"        pm.expect(result.name).to.exist;",
+									"        pm.expect(result.url).to.exist;",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Results array is present and contains at least one element\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.results).to.exist.and.to.be.an('array').that.is.not.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Total records and total pages are non-negative integers\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData.total_records).to.be.a('number').and.to.be.at.least(0);",
+									"  pm.expect(responseData.total_pages).to.be.a('number').and.to.be.at.least(0);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/starships/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Starships by uid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the response schema for required properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.result).to.be.an('object');",
+									"    pm.expect(responseData.result.properties).to.include.all.keys(",
+									"        'model', 'starship_class', 'manufacturer', 'cost_in_credits', 'length', 'crew', ",
+									"        'passengers', 'max_atmosphering_speed', 'hyperdrive_rating', 'MGLT', 'cargo_capacity', ",
+									"        'consumables', 'pilots', 'created', 'edited', 'name', 'url'",
+									"    );",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/starships/:uid/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"starships",
+								":uid",
+								""
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "10"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "People",
+			"item": [
+				{
+					"name": "Get all Characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.exist;",
+									"    pm.expect(responseData.total_records).to.exist;",
+									"    pm.expect(responseData.total_pages).to.exist;",
+									"    pm.expect(responseData.previous).to.equal(null);",
+									"    pm.expect(responseData.next).to.exist;",
+									"    pm.expect(responseData.results).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each result in the 'results' array has the required fields - uid, name, and url\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.results).to.be.an('array');",
+									"    responseData.results.forEach(function(result) {",
+									"        pm.expect(result).to.have.property('uid');",
+									"        pm.expect(result).to.have.property('name');",
+									"        pm.expect(result).to.have.property('url');",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/people/"
+					},
+					"response": []
+				},
+				{
+					"name": "Maximun of Characters",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"",
+									"if (response.message === \"ok\") {",
+									"    pm.test(\"Total Records is a valid number\", function () {",
+									"        pm.expect(response.total_records).to.be.a(\"number\");",
+									"        pm.expect(response.total_records).to.be.greaterThan(0); ",
+									"    });",
+									"",
+									"    console.log(`Maximum of Characters Available: ${response.total_records}`);",
+									"",
+									"} else {",
+									"    // If response.message is not \"ok\", then the test will be failed.",
+									"    pm.test(\"API Response message is not OK\", function () {",
+									"        pm.expect(response.message).to.eql(\"ok\"); ",
+									"    });",
+									"",
+									"    console.error(\"The API response did not return 'ok'. Maximum of Characters Available Validation skipped.\");",
+									"}"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/people/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Character by uid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.result.properties).to.include.all.keys(",
+									"        'height', 'mass', 'hair_color', 'skin_color', 'eye_color', 'birth_year', ",
+									"        'gender', 'created', 'edited', 'name', 'homeworld', 'url'",
+									"    );",
+									"});",
+									"",
+									"",
+									"pm.test(\"Date is in a valid date format\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData.result.properties.created).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}.\\d{3}Z$/);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/people/:uid/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"people",
+								":uid",
+								""
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Character by uid 99",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 404\", function () {",
+									"    pm.expect(pm.response.code).to.equal(404);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.exist;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Message is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.message).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Message should not be empty\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the response schema\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"console.log(\"This can be an expected error, please take a look at the requirements of the task that you are testing!\")",
+									"",
+									"//** The response for this request is a status code 404, that means that the resource doesn't exist. This can be expected or not, for define if we are in front of a bug or not, the QA Engineer should review the requirements or check the ticket in terms to identify if the result is expected or not. In case that the resource with uid 99 have to exist, we would be in front of a bug and the following steps is the test report. */",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/people/:uid/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"people",
+								":uid",
+								""
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "99"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Character by name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    const requiredFields = [",
+									"        \"message\",",
+									"        \"result\"",
+									"    ];",
+									"    requiredFields.forEach(field => pm.expect(responseData).to.have.property(field));",
+									"});",
+									"",
+									"const response = pm.response.json();",
+									"",
+									"const expectedProperties = [",
+									"    \"height\",",
+									"    \"mass\",",
+									"    \"hair_color\",",
+									"    \"skin_color\",",
+									"    \"eye_color\",",
+									"    \"birth_year\",",
+									"    \"gender\",",
+									"    \"created\",",
+									"    \"edited\",",
+									"    \"name\",",
+									"    \"homeworld\",",
+									"    \"url\"",
+									"];",
+									"",
+									"pm.test(\"Result array exists and is valid\", function () {",
+									"    pm.expect(response).to.have.property(\"result\");",
+									"    pm.expect(response.result).to.be.an(\"array\");",
+									"});",
+									"",
+									"response.result.forEach((item, index) => {",
+									"    pm.test(`Item at index ${index} has 'properties' with expected keys`, function () {",
+									"        pm.expect(item).to.have.property(\"properties\");",
+									"        const properties = Object.keys(item.properties);",
+									"",
+									"        expectedProperties.forEach((key) => {",
+									"            pm.expect(properties).to.include(key, `Missing key: ${key}`);",
+									"        });",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response follows the expected schema for SWAPI API\", function () {",
+									"  const responseData = pm.response.json();",
+									"  ",
+									"  pm.expect(responseData).to.be.an('object');",
+									"  pm.expect(responseData.message).to.exist.and.to.be.a('string');",
+									"  ",
+									"  responseData.result.forEach(function(person) {",
+									"    pm.expect(person).to.be.an('object');",
+									"    pm.expect(person.properties).to.exist.and.to.be.an('object');",
+									"    pm.expect(person.description).to.exist.and.to.be.a('string');",
+									"    pm.expect(person._id).to.exist.and.to.be.a('string');",
+									"    pm.expect(person.uid).to.exist.and.to.be.a('string');",
+									"    pm.expect(person.__v).to.exist.and.to.be.a('number');",
+									"  });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content type is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/people/?name=r2",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"people",
+								""
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "r2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET People in wookie",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 3000ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response body is not empty\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData).to.not.be.empty;",
+									"});",
+									"",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/people?format=wookiee",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"people"
+							],
+							"query": [
+								{
+									"key": "format",
+									"value": "wookiee"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Planets",
+			"item": [
+				{
+					"name": "Get all Planets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.expect(pm.response.code).to.equal(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Content-Type header is application/json\", function () {",
+									"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('message');",
+									"    pm.expect(responseData).to.have.property('total_records');",
+									"    pm.expect(responseData).to.have.property('total_pages');",
+									"    pm.expect(responseData).to.have.property('previous');",
+									"    pm.expect(responseData).to.have.property('next');",
+									"    pm.expect(responseData).to.have.property('results');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Each result object has the required fields - uid, name, and url\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.results).to.be.an('array');",
+									"    ",
+									"    responseData.results.forEach(function(result) {",
+									"        pm.expect(result).to.have.property('uid').that.is.a('string');",
+									"        pm.expect(result).to.have.property('name').that.is.a('string');",
+									"        pm.expect(result).to.have.property('url').that.is.a('string');",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 500ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(500);",
+									"});",
+									"",
+									"console.log(\"Here we are validating the response data, format and also response time\")",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/planets/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get planet by uid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/planets/:uid/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"planets",
+								":uid",
+								""
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Planet 27",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"",
+									"pm.test(\"API Response message is OK\", function () {",
+									"    pm.expect(response.message).to.eql(\"ok\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has correct structure\", function () {",
+									"    pm.expect(response).to.have.property(\"message\");",
+									"    pm.expect(response).to.have.property(\"result\");",
+									"    pm.expect(response.result).to.have.property(\"properties\");",
+									"    pm.expect(response.result).to.have.property(\"description\");",
+									"    pm.expect(response.result).to.have.property(\"_id\");",
+									"    pm.expect(response.result).to.have.property(\"uid\");",
+									"    pm.expect(response.result).to.have.property(\"__v\");",
+									"});",
+									"",
+									"pm.test(\"Response values are correct\", function () {",
+									"    let properties = response.result.properties;",
+									"",
+									"    pm.expect(properties).to.have.property(\"name\", \"Ord Mantell\");",
+									"    pm.expect(properties).to.have.property(\"diameter\", \"14050\");",
+									"    pm.expect(properties).to.have.property(\"rotation_period\", \"26\");",
+									"    pm.expect(properties).to.have.property(\"orbital_period\", \"334\");",
+									"    pm.expect(properties).to.have.property(\"gravity\", \"1 standard\");",
+									"    pm.expect(properties).to.have.property(\"population\", \"4000000000\");",
+									"    pm.expect(properties).to.have.property(\"climate\", \"temperate\");",
+									"    pm.expect(properties).to.have.property(\"terrain\", \"plains, seas, mesas\");",
+									"    pm.expect(properties).to.have.property(\"surface_water\", \"10\");",
+									"    pm.expect(properties).to.have.property(\"created\").that.matches(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/); // Formato ISO 8601",
+									"    pm.expect(properties).to.have.property(\"edited\").that.matches(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$/);",
+									"    pm.expect(properties).to.have.property(\"url\", \"https://www.swapi.tech/api/planets/27\");",
+									"});",
+									"",
+									"pm.test(\"Result level values are correct\", function () {",
+									"    pm.expect(response.result).to.have.property(\"description\", \"A planet.\");",
+									"    pm.expect(response.result).to.have.property(\"_id\", \"5f7254c11b7dfa00041c6fc8\");",
+									"    pm.expect(response.result).to.have.property(\"uid\", \"27\");",
+									"    pm.expect(response.result).to.have.property(\"__v\", 0);",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/planets/:id/",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"planets",
+								":id",
+								""
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "27"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Films",
+			"item": [
+				{
+					"name": "Get All Films",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the response schema properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.message).to.exist.and.to.be.a('string').and.equal(\"ok\");",
+									"    pm.expect(responseData.result).to.exist.and.to.be.an('array').and.not.be.empty;",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 200ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/films/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Film by Uid",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/films/:uid",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"films",
+								":uid"
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Filter by tittle",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json().result[0].properties;",
+									"",
+									"    pm.expect(responseData).to.include.all.keys(",
+									"        'characters', 'planets', 'starships', 'vehicles', 'species', ",
+									"        'created', 'edited', 'producer', 'title', 'episode_id', ",
+									"        'director', 'release_date', 'opening_crawl', 'url'",
+									"    );",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 3000ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has correct Content-Type header\", function () {",
+									"  pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");",
+									"});",
+									"",
+									"",
+									"pm.test(\"Verify the schema of the response\", function () {",
+									"    const responseData = pm.response.json();",
+									"",
+									"    pm.expect(responseData).to.have.property(\"message\");",
+									"    pm.expect(responseData).to.have.property(\"result\").that.is.an(\"array\");",
+									"    responseData.result.forEach(function (film) {",
+									"        pm.expect(film).to.have.property(\"properties\").that.is.an(\"object\");",
+									"        pm.expect(film.properties).to.have.property(\"characters\").that.is.an(\"array\");",
+									"        pm.expect(film.properties).to.have.property(\"planets\").that.is.an(\"array\");",
+									"        pm.expect(film.properties).to.have.property(\"starships\").that.is.an(\"array\");",
+									"        pm.expect(film.properties).to.have.property(\"vehicles\").that.is.an(\"array\");",
+									"        pm.expect(film.properties).to.have.property(\"species\").that.is.an(\"array\");",
+									"        pm.expect(film.properties).to.have.property(\"created\");",
+									"        pm.expect(film.properties).to.have.property(\"edited\");",
+									"        pm.expect(film.properties).to.have.property(\"producer\");",
+									"        pm.expect(film.properties).to.have.property(\"title\");",
+									"        pm.expect(film.properties).to.have.property(\"episode_id\");",
+									"        pm.expect(film.properties).to.have.property(\"director\");",
+									"        pm.expect(film.properties).to.have.property(\"release_date\");",
+									"        pm.expect(film.properties).to.have.property(\"opening_crawl\");",
+									"        pm.expect(film.properties).to.have.property(\"url\");",
+									"        pm.expect(film).to.have.property(\"description\");",
+									"        pm.expect(film).to.have.property(\"_id\");",
+									"        pm.expect(film).to.have.property(\"uid\");",
+									"        pm.expect(film).to.have.property(\"__v\");",
+									"    });",
+									"});",
+									"",
+									"pm.test(\"identify the uid of the film\", function () {",
+									"    const responseData = pm.response.json().result[0].uid;",
+									"",
+									"   console.log('The uid of the film is: ' + responseData )",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/films/?title=The Phantom Menace",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"films",
+								""
+							],
+							"query": [
+								{
+									"key": "title",
+									"value": "The Phantom Menace"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "SWAPI",
+			"item": [
+				{
+					"name": "Endpoints",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Species",
+			"item": [
+				{
+					"name": "Get all Species",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 3000ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the response schema for required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData).to.have.property('message');",
+									"    pm.expect(responseData).to.have.property('total_records');",
+									"    pm.expect(responseData).to.have.property('total_pages');",
+									"    pm.expect(responseData).to.have.property('previous');",
+									"    pm.expect(responseData).to.have.property('next');",
+									"    pm.expect(responseData).to.have.property('results');",
+									"});",
+									"",
+									"",
+									"pm.test(\"Uid, name, and url in each results object are non-empty strings\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.results).to.be.an('array');",
+									"    responseData.results.forEach(function(result) {",
+									"        pm.expect(result).to.be.an('object');",
+									"        pm.expect(result.uid).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Uid should not be empty\");",
+									"        pm.expect(result.name).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Name should not be empty\");",
+									"        pm.expect(result.url).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Url should not be empty\");",
+									"    });",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/species/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Specie by Uid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Validate the response schema for properties\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.result).to.be.an('object');",
+									"    pm.expect(responseData.result.properties).to.include.all.keys(",
+									"        'classification',",
+									"        'designation',",
+									"        'average_height',",
+									"        'average_lifespan',",
+									"        'hair_colors',",
+									"        'skin_colors',",
+									"        'eye_colors',",
+									"        'homeworld',",
+									"        'language',",
+									"        'people',",
+									"        'created',",
+									"        'edited',",
+									"        'name',",
+									"        'url'",
+									"    );",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is within an acceptable range\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/species/:uid",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"species",
+								":uid"
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Vehicles",
+			"item": [
+				{
+					"name": "Get All Vehicles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "https://www.swapi.tech/api/vehicles/"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Vehicles by Uid",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {",
+									"  pm.response.to.have.status(200);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response has the required fields\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData).to.be.an('object');",
+									"    pm.expect(responseData.result).to.be.an('object');",
+									"    ",
+									"    const requiredFields = [\"model\", \"vehicle_class\", \"manufacturer\", \"cost_in_credits\", \"length\", \"crew\", \"passengers\", \"max_atmosphering_speed\", \"cargo_capacity\", \"consumables\", \"films\", \"pilots\", \"created\", \"edited\", \"name\", \"url\"];",
+									"    ",
+									"    requiredFields.forEach(field => {",
+									"        pm.expect(responseData.result.properties).to.have.property(field);",
+									"    });",
+									"});",
+									"",
+									"",
+									"pm.test(\"Films and pilots arrays are present and contain expected number of elements\", function () {",
+									"    const responseData = pm.response.json();",
+									"    ",
+									"    pm.expect(responseData.result.properties.films).to.be.an('array').and.to.have.lengthOf.at.least(0);",
+									"    pm.expect(responseData.result.properties.pilots).to.be.an('array').and.to.have.lengthOf.at.least(0);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Response time is less than 3000ms\", function () {",
+									"  pm.expect(pm.response.responseTime).to.be.below(3000);",
+									"});",
+									"",
+									"",
+									"pm.test(\"Uid is a non-empty string\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.result.uid).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Uid should be a non-empty string\");",
+									"});",
+									"",
+									"pm.test(\"__v is a non-negative integer\", function () {",
+									"    const responseData = pm.response.json();",
+									"    pm.expect(responseData.result.__v).to.be.a('number').and.to.be.at.least(0, \"__v should be a non-negative integer\");",
+									"});",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://www.swapi.tech/api/vehicles/:uid",
+							"protocol": "https",
+							"host": [
+								"www",
+								"swapi",
+								"tech"
+							],
+							"path": [
+								"api",
+								"vehicles",
+								":uid"
+							],
+							"variable": [
+								{
+									"key": "uid",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
