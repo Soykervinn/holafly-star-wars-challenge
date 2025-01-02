@@ -57,7 +57,7 @@ npm run cy:run
 **Run pointing to Cypress Cloud:**
 
  ```bash
-npm run cy:run
+npm run cy:cloud
 ```
 
 ### Project Structure
