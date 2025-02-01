@@ -4,7 +4,7 @@ pipeline {
     }
 
     environment {
-        CYPRESS_CACHE_FOLDER = '/Users/$(whoami)/cypress_cache'
+        CYPRESS_CACHE_FOLDER = '/Users/kervinn/cypress_cache'
     }
 
     stages {
