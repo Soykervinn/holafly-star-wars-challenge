@@ -37,11 +37,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            // Archivar los resultados de las pruebas si es necesario
-            junit '**/test-results/*.xml'
-        }
-    }
 }
