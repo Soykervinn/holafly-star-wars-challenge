@@ -1,0 +1,47 @@
+pipeline {
+    agent {
+        label 'local-slave'
+    }
+
+    environment {
+        CYPRESS_CACHE_FOLDER = '/Users/$(whoami)/cypress_cache'
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Soykervinn/holafly-star-wars-challenge'
+            }
+        }
+
+        stage('Install Dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
+        stage('Run Cypress Tests in Parallel') {
+            parallel {
+                stage('Test Suite 1') {
+                    steps {
+                        // Ejecutar una parte de las pruebas en paralelo
+                        sh 'npx cypress run --record --key 2c8f43dc-ce48-47ee-98a6-e9ee3fc67aec --spec "cypress/e2e/Backend/starWarsApi.feature"'
+                    }
+                }
+                stage('Test Suite 2') {
+                    steps {
+                        // Ejecutar otra parte de las pruebas en paralelo
+                        sh 'npx cypress run --record --key 2c8f43dc-ce48-47ee-98a6-e9ee3fc67aec --spec "cypress/e2e/Frontend/exerciseAutomation.feature"'
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Archivar los resultados de las pruebas si es necesario
+            //junit '**/test-results/*.xml'
+        }
+    }
+}

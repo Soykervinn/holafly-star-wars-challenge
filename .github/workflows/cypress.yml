@@ -1,7 +1,5 @@
 name: Cypress Tests
 on: 
-  schedule:
-    - cron: '0 18 * * 1' # 18:00 UTC = 15:00 Argentina
   push:
     branches:
       - main 
